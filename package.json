@@ -1,17 +1,17 @@
 {
-  "name": "captain-gradd",
+  "name": "captain-sky",
   "version": "1.0.0",
-  "description": "The Captain that drives GRADD service",
-  "homepage": "https://github.com/DAVFoundation/captain-gradd#readme",
+  "description": "The Captain that drives SKY service",
+  "homepage": "https://github.com/DAVFoundation/captain-sky#readme",
   "bugs": {
-    "url": "https://github.com/DAVFoundation/captain-gradd/issues"
+    "url": "https://github.com/DAVFoundation/captain-sky/issues"
   },
   "license": "MIT",
   "author": "",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DAVFoundation/captain-gradd.git"
+    "url": "git+https://github.com/DAVFoundation/captain-sky.git"
   },
   "scripts": {
     "start": "nodemon ./src/index.js",

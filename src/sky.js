@@ -8,7 +8,7 @@ const Rx = require('rxjs/Rx');
 const stationId = require('./station-id');
 const mnemonic = require('../mnemonic');
 
-class Gradd {
+class Sky {
   constructor() {
 
   }
@@ -26,7 +26,7 @@ class Gradd {
     
     this.station.sdk.initCaptain({
       id: stationId,
-      model: 'GRADD',
+      model: 'SKY',
       icon: `https://lorempixel.com/100/100/abstract/?${stationId}`,
       coords: {
         long: this.station.location.longitude,
@@ -194,4 +194,4 @@ class Gradd {
   }
 }
 
-module.exports = new Gradd();
+module.exports = new Sky();

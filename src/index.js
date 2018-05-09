@@ -1,3 +1,3 @@
-const gradd = require('./gradd');
+const sky = require('./sky');
 
-gradd.init().catch(err => console.log(err));
+sky.init().catch(err => console.log(err));
