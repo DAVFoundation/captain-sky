@@ -46,7 +46,7 @@ class Sky {
         () => console.log('')
       );
     }
-    const droneDelivery = this.station.sdk.needs().forType('route_plan', {
+    const droneDelivery = this.station.sdk.needs().forType('drone_charging', {
       ...this.station.location,
       radius: 10e10,
       ttl: 120 // TTL in seconds
