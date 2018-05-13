@@ -66,7 +66,7 @@ class Sky {
     const missionUpdates = Rx.Observable.timer(0, 1000)
       .mergeMap(async () => {
         let mission = await API.missions.getMission(missionId);
-        let vehicle = await API.captains.getCaptain(mission.vehicle_id);
+        let vehicle = await API.captains.getCaptain(mission.captain_id);
         return { mission, vehicle };
       })
       .distinctUntilChanged(
@@ -93,9 +93,15 @@ class Sky {
                 );
                 break;
               case 'confirmed':
+                setTimeout(async () => {
+                  await this.updateStatus(state.mission, 'completed', 'available');
+                }, 3000);
+                await API.missions.updateMission(state.mission.mission_id, {
+                  status: 'completed',
+                  captain_id: state.vehicle.id
+                });
                 break;
               case 'completed':
-                await this.updateStatus(state.mission, 'completed', 'available');
                 missionUpdates.unsubscribe();
                 break;
               default:
@@ -153,7 +159,7 @@ class Sky {
     await API.missions.updateMission(mission.mission_id, {
       mission_status: missionStatus,
       vehicle_status: vehicleStatus,
-      captain_id: mission.vehicle_id
+      captain_id: mission.captain_id
     });
   }
 
@@ -190,7 +196,7 @@ class Sky {
   }
 
   onContractCreated(drone, mission) {
-    this.beginMission(mission.vehicle_id, mission.mission_id);
+    this.beginMission(mission.captain_id, mission.mission_id);
   }
 }
 
