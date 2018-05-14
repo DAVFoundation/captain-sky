@@ -31,7 +31,7 @@ class Sky {
     station.sdk = new DavSDK(station.davId, station.davId, mnemonic);
     await station.sdk.initCaptain({
       id: station.davId,
-      model: 'SKY',
+      model: 'SKY-' + station.name,
       icon: `https://lorempixel.com/100/100/abstract/?${station.davId}`,
       coords: {
         long: station.location.longitude,
@@ -142,9 +142,16 @@ class Sky {
         break;
       case 'in_progress':
         setTimeout(async () => {
-          await this.updateStatus(mission, 'ready', 'ready');
-        }, 20000);
+          await this.updateStatus(mission, 'charger_waiting', 'charger_waiting');
+        }, 3000);
         break;
+      case 'charger_waiting':
+        break;
+      case 'docking_confirmation_received':
+        setTimeout(async () => {
+          await this.updateStatus(mission, 'charger_waiting', 'charger_waiting');
+        }, 20000);
+      break;
       case 'ready':
         break;
       case 'available':
@@ -173,13 +180,10 @@ class Sky {
     }
     
     const bidInfo = {
-      price: '5000',
+      price: station.price,
       price_type: 'flat',
       price_description: 'Flat fee',
-      // time_to_pickup: (distToPickup / DRONE_AVG_VELOCITY) + 1,
-      // time_to_dropoff: (distToDropoff / DRONE_AVG_VELOCITY) + 1,
-      // drone_manufacturer: 'Copter Express',
-      // drone_model: 'SITL',
+      max_charging_velocity: 30,
       ttl: 120 // TTL in seconds
     };
 
