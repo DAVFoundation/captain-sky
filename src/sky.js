@@ -5,55 +5,59 @@ const {
 } = require('./missioncontrol/vehicles');
 const { DavSDK, API } = require('dav-js');
 const Rx = require('rxjs/Rx');
-const stationId = require('./station-id');
+const stations = require('./station-id-map');
 const mnemonic = require('../mnemonic');
 
 class Sky {
   constructor() {
-
+    this.stationsBySkyId = {};
+    this.stationsByDavID = {};
   }
 
   async init() {
-    this.station = {
-      sdk:new DavSDK(stationId, stationId, mnemonic),
-      location: {
-        longitude: 8.5444809,
-        latitude: 47.397669
-      },
-      needs: [],
-      bids: []
-    }
+    this.stationsBySkyId = stations;
+    Object.values(stations)
+      .map( async station => {
+        await this.initStationSDK(station);
+        this.stationsByDavID[station.davId] = station;
+      });
+
     
-    this.station.sdk.initCaptain({
-      id: stationId,
+  }
+
+  async initStationSDK(station) {
+    station.needs = [];
+    station.bids = [];
+    station.sdk = new DavSDK(station.davId, station.davId, mnemonic);
+    await station.sdk.initCaptain({
+      id: station.davId,
       model: 'SKY',
-      icon: `https://lorempixel.com/100/100/abstract/?${stationId}`,
+      icon: `https://lorempixel.com/100/100/abstract/?${station.davId}`,
       coords: {
-        long: this.station.location.longitude,
-        lat: this.station.location.latitude
+        long: station.location.longitude,
+        lat: station.location.latitude
       },
       missions_completed: 0,
       missions_completed_7_days: 0,
       status: 'available'
     });
-
-    let isRegistered = await this.station.sdk.isRegistered();
+    let isRegistered = await station.sdk.isRegistered();
     if (isRegistered) {
-      let missionContract = this.station.sdk.mission().contract();
+      let missionContract = station.sdk.mission().contract();
       missionContract.subscribe(
-        mission => this.onContractCreated(this.station, mission),
+        mission => this.onContractCreated(station, mission),
         err => console.log(err),
         () => console.log('')
       );
     }
-    const droneDelivery = this.station.sdk.needs().forType('drone_charging', {
-      ...this.station.location,
+    const charging = station.sdk.needs().forType('drone_charging', {
+      ...station.location,
       radius: 10e10,
       ttl: 120 // TTL in seconds
     });
 
-    droneDelivery.subscribe(
-      need => this.onNeed(this.station, need),
+    charging.subscribe(
+      need => this.onNeed(station, need),
       err => console.log(err),
       () => console.log('')
     );
