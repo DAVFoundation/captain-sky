@@ -1,4 +1,4 @@
-export default {
+module.exports = {
     1: {
         davId: '0x4fFCe6A06CB4317a295acaDdbb3141c73158f954',
         id: 1,
