@@ -149,7 +149,7 @@ class Sky {
         break;
       case 'docking_confirmation_received':
         setTimeout(async () => {
-          await this.updateStatus(mission, 'charger_waiting', 'charger_waiting');
+          await this.updateStatus(mission, 'ready', 'ready');
         }, 20000);
       break;
       case 'ready':
