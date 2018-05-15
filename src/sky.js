@@ -3,6 +3,7 @@ const {
   addNewVehicle: apiAddNewVehicle,
   updateVehicle: apiUpdateVehicle
 } = require('./missioncontrol/vehicles');
+const geolib = require('geolib');
 const { DavSDK, API } = require('dav-js');
 const Rx = require('rxjs/Rx');
 const stations = require('./station-id-map');
@@ -37,6 +38,7 @@ class Sky {
         long: station.location.longitude,
         lat: station.location.latitude
       },
+      max_charging_velocity: station.max_charging_velocity,
       missions_completed: 0,
       missions_completed_7_days: 0,
       status: 'available'
@@ -179,11 +181,18 @@ class Sky {
       return;
     }
     
+    const distance = geolib.getDistance(
+      { latitude: station.location.latitude, longitude: station.location.longitude },
+      { latitude: need.need_location_latitude, longitude: need.need_location_longitude },
+      // { latitude: pt1.lat, longitude: pt1.lon },
+      1, 1
+    );
+
     const bidInfo = {
       price: station.price,
       price_type: 'flat',
       price_description: 'Flat fee',
-      max_charging_velocity: 30,
+      distance: Math.floor(distance / 1000),
       ttl: 120 // TTL in seconds
     };
 

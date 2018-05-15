@@ -8,6 +8,7 @@ module.exports = {
             longitude: 116.419352,
             latitude: 38.802660
         },
+        max_charging_velocity: 30,
         status: 'Available',
     },
     2: {
@@ -19,6 +20,7 @@ module.exports = {
             longitude: 116.419352, 
             latitude: 38.802660,
         },
+        max_charging_velocity: 30,
         status: 'Awaiting Landing Approval',
     },
     // 3: {
