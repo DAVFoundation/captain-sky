@@ -18,8 +18,9 @@
     "test": ""
   },
   "dependencies": {
-    "dav-js": "latest",
     "axios": "^0.18.0",
+    "dav-js": "latest",
+    "express": "^4.16.3",
     "geolib": "^2.0.24",
     "qs": "^6.5.1",
     "rxjs": "^5.5.8"

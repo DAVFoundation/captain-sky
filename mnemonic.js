@@ -1,1 +1,1 @@
-module.exports = 'this is dummy seed phrase for the local testnet';
+module.exports = 'seed phrase test';

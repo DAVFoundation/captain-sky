@@ -69,6 +69,8 @@ class Sky {
   }
 
   async beginMission(vehicleId, missionId) {
+    this.stationsByDavID[vehicleId]['missionId'] = missionId;
+    
     const missionUpdates = Rx.Observable.timer(0, 1000)
       .mergeMap(async () => {
         let mission = await API.missions.getMission(missionId);
@@ -135,8 +137,8 @@ class Sky {
 
   async onInMission(mission, captain) {
     // await apiUpdateVehicle(vehicle);
-
     switch (captain.status) {
+      
       case 'contract_received':
         setTimeout(async () => {
           await this.updateStatus(mission, 'in_progress', 'in_progress');
