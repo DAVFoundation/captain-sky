@@ -1,5 +1,5 @@
 module.exports = {
-    1: {
+    19: {
         davId: '0x1df62f291b2e969fb0849d99d9ce41e2f137006e',
         id: 19,
         name: 'Rosie',
@@ -10,7 +10,7 @@ module.exports = {
         },
         status: 'Available',
     },
-    2: {
+    18: {
         davId: '0xaca94ef8bd5ffee41947b4585a84bda5a3d3da6e',
         id: 18,
         name: 'Bender',
