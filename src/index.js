@@ -53,21 +53,27 @@ app.listen(3003);
 function getUpdatedStatusFromMissions() {
     const stations = getAllStations();
     const stationsArray = Promise.all(stations.map(async station => {
-        const status = await API.captains.getCaptain(station.davId);
+        const captain = await API.captains.getCaptain(station.davId);
         const newStation = {};
         Object.assign(newStation, station);
-        switch (status) {
-            case 'in_progress':
-                newStation.status = 'Awaiting Landing Approval';
+        switch (captain.status) {
+            case 'contract_received':
+                if (station.status === 'Available') {
+                    newStation.status = 'Awaiting Landing Approval';
+                }
                 break;
-            // case 'charger_waiting':
-            //     newStation.station = "Waiting For Drone Landing";
-            //     break;
+            case 'in_progress':
+                if (station.status == 'Available') {
+                    newStation.status = 'Awaiting Landing Approval';
+                }
+                break;
             case 'docking_confirmation_received':
                 newStation.status = 'Charging';
                 break;
             case 'ready':
-                newStation.status = 'Awaiting Availabilty approval';
+                if (station.status === 'Charging') {
+                    newStation.status = 'Charging Finished, Awaiting Availabilty Approval';
+                }    
                 break;
         }
         return newStation;
@@ -78,10 +84,9 @@ function getUpdatedStatusFromMissions() {
             stationsMap[station.id] = station;
         });
         STATION_ID_MAP = stationsMap;
-        for (let station in STATION_ID_MAP) {
-            if (station.status === "Available" || station.status === 'Awaiting Landing Approval') {
-                station.middionId = sky.stationsByDavID[station.id].missionId;
-            }
+        for (let stationId in STATION_ID_MAP) {
+            let station = STATION_ID_MAP[stationId];
+            station.missionId = sky.stationsByDavID[station.davId].missionId;
         }
     });
 }
@@ -93,7 +98,8 @@ function getAllStations() {
 
 function updateStationIsWaitingForDrone(id) {
     if (!!id && !!STATION_ID_MAP[id]) {
-        mission = {mission_id: STATION_ID_MAP[id].missionId, captain_id: id};
+        let station = STATION_ID_MAP[id]
+        mission = {mission_id: station.missionId, captain_id: station.davId};
         sky.updateStatus(mission, 'charger_waiting', 'charger_waiting')
         STATION_ID_MAP[id].status = 'Waiting For Drone Landing';
     }
@@ -101,17 +107,10 @@ function updateStationIsWaitingForDrone(id) {
 
 function updateStationIsAvailable(id) {
     if (!!id && !!STATION_ID_MAP[id]) {
-        ///TODO: update sky
-        mission = {mission_id: STATION_ID_MAP[id].missionId, captain_id: id};
-        sky.updateStatus(mission, 'available', 'available')
+        // let station = STATION_ID_MAP[id]
+        // mission = {mission_id: station.missionId, captain_id: station.davId};
+        // sky.updateStatus(mission, 'ready', 'available')
         STATION_ID_MAP[id].status = 'Available';
         STATION_ID_MAP[id].missionId = null;
     }
-}
-
-function testStatusChanges(id) {
-    setTimeout(() => {
-        STATION_ID_MAP[id].status = 'Charging';
-        setTimeout(() => STATION_ID_MAP[id].status = 'Charging Finished, Awaiting Availabilty Approval', 3000);
-    }, 3000);
 }

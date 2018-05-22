@@ -5,8 +5,8 @@ module.exports = {
         name: 'Rosie',
         price: '22e17',
         location: {
-            longitude: 116.419352,
-            latitude: 38.802660
+            longitude: 32.0755521,
+            latitude: 34.7782663,
         },
         max_charging_velocity: 30,
         status: 'Available',
@@ -17,11 +17,11 @@ module.exports = {
         name: 'Bender',
         price: '5e16',
         location: {
-            longitude: 116.419352, 
-            latitude: 38.802660,
+            longitude: 32.0755521,
+            latitude: 34.7782663,
         },
         max_charging_velocity: 30,
-        status: 'Awaiting Landing Approval',
+        status: 'Available',
     },
     // 3: {
     //     davId: '0xF0D5BC18421fa04D0a2A2ef540ba5A9f04014BE3',
