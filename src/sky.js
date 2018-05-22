@@ -140,29 +140,30 @@ class Sky {
     switch (captain.status) {
       
       case 'contract_received':
-        setTimeout(async () => {
-          await this.updateStatus(mission, 'in_progress', 'in_progress');
-        }, 3000);
+        this.updateStatus(mission, 'in_progress', 'in_progress');
         break;
       case 'in_progress':
-        setTimeout(async () => {
-          await this.updateStatus(mission, 'charger_waiting', 'charger_waiting');
-        }, 3000);
+        // setTimeout(async () => {
+        //   await this.updateStatus(mission, 'charger_waiting', 'charger_waiting');
+        // }, 3000);
         break;
       case 'charger_waiting':
+        // setTimeout(async () => {
+        //   await this.updateStatus(mission, 'charger_waiting', 'charger_waiting');
+        // }, 3000);
         break;
       case 'docking_confirmation_received':
-        setTimeout(async () => {
-          await this.updateStatus(mission, 'ready', 'ready');
-        }, 20000);
+        // setTimeout(async () => {
+        //   await this.updateStatus(mission, 'ready', 'ready');
+        // }, 20000);
       break;
       case 'ready':
         break;
       case 'available':
-        await API.missions.updateMission(mission.mission_id, {
-          status: 'completed',
-          captain_id: captain.id
-        });
+        // await API.missions.updateMission(mission.mission_id, {
+        //   status: 'completed',
+        //   captain_id: captain.id
+        // });
         break;
       default:
         console.log(`bad captain.status ${captain}`);
@@ -191,6 +192,7 @@ class Sky {
     );
 
     const bidInfo = {
+      captain_id: station.davId,
       price: station.price,
       price_type: 'flat',
       price_description: 'Flat fee',
