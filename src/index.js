@@ -21,10 +21,13 @@ for (let key in stations) {
 }
 const { API } = require('dav-js');
 const sky = require('./sky');
+const port = process.env.CAPTAIN_PORT;
 sky.init().catch(err => console.log(err));
 
 const express = require('express');
 const app = express();
+
+app.use('/dashboard', express.static(__dirname+'/sky-dashbaord'));
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -48,7 +51,9 @@ app.get('/available/:stationId', function (req, res, next) {
     res.sendStatus(200);
 });
 
-app.listen(3003);
+app.listen(port, () => {
+    console.log(`Web server started. Listening on port ${port}`);
+  });
 
 function getUpdatedStatusFromMissions() {
     const stations = getAllStations();
@@ -72,7 +77,7 @@ function getUpdatedStatusFromMissions() {
                 break;
             case 'ready':
                 if (station.status === 'Charging') {
-                    newStation.status = 'Charging Finished, Awaiting Availabilty Approval';
+                    newStation.status = 'Available';
                 }    
                 break;
         }

@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 module.exports = options => {
     return {
       entry: './index.js',
@@ -20,5 +21,13 @@ module.exports = options => {
           },
         ],
       },
+      plugins: [
+        new webpack.DefinePlugin({
+          'process.env': {
+            CAPTAIN_HOST: JSON.stringify('localhost'),
+            CAPTAIN_PORT: JSON.stringify('8887'),
+          }
+        })
+      ],
     }
   }

@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
-const captainSkyUrl = 'http://localhost:3003';
+const captainSkyUrl = 'http://'+process.env.CAPTAIN_HOST+':'+process.env.CAPTAIN_PORT;
 
 function Station(props) {
   let stationClasses = 'station-box';
-  if(props.status === 'Awaiting Landing Approval' || props.status === 'Charging Finished, Awaiting Availabilty Approval') {
+  if(props.status === 'Awaiting Landing Approval') {
     stationClasses += ' awaiting';
   } else if(props.status === 'Charging') {
     stationClasses += ' charging';
@@ -39,7 +39,7 @@ class Dashboard extends Component {
   }
   
   updateStationStatus(station) {
-    if (station.status != 'Awaiting Landing Approval' && station.status != 'Charging Finished, Awaiting Availabilty Approval') {
+    if (station.status != 'Awaiting Landing Approval') {
       console.log("station with unchanged status: "+station.status);
       return;
     }
@@ -49,9 +49,6 @@ class Dashboard extends Component {
         if (station.status == 'Awaiting Landing Approval') {
           iterStation.status = 'Waiting For Drone Landing';
           fetch(captainSkyUrl+'/waitingForDroneLanding/'+station.id);
-        } else {
-          iterStation.status = 'Available';
-          fetch(captainSkyUrl+'/available/'+station.id);
         }
         
         this.setState({stations: stations});

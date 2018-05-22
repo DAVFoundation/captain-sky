@@ -1,11 +1,19 @@
 link-dav-js:
 	npm link ../dav-js
 
+build-dashboard:
+	cd src/sky-dashbaord && npm run build
+
 build:
+	@rsync -a ../dav-js build
+	@rsync -a ../dav-js node_modules
 	@docker-compose build
 
-up: build
+up: build-dashboard build
 	@docker-compose up
+
+up-bg: build
+	@docker-compose up -d
 
 create-aws-stg-env:
 	@eb init captain-sky
@@ -13,4 +21,7 @@ create-aws-stg-env:
 
 deploy-aws-stg-env:
 	@eb deploy --profile eb-cli-dav --staged
+
+down:
+	@docker-compose down
 

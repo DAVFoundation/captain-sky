@@ -1,7 +1,8 @@
 FROM node:9.3.0
 
-RUN npm install -g nodemon
+RUN apt update && apt full-upgrade -yy
 
+RUN npm install -g nodemon
 
 WORKDIR /app
 

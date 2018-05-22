@@ -3,21 +3,26 @@ version: '3'
 services:
   captain-sky:
     build: .
+    command: 'bash -c ./dev-run.sh'
     ports:
       - '8887:8080'
+      - '9228:9229'
     environment:
       NODE_ENV: development
       DAV_API_URL: http://mission-control:8443
       CAPTAIN_PORT: 8080
       CAPTAIN_HOSTNAME: 0.0.0.0
+      ETH_NODE_URL: http://dav-contracts:8545
+      MISSION_CONTROL_URL: http://mission-control:8443
       BLOCKCHAIN_TYPE: NONE
     volumes:
-      - /app/node_modules
-      - .:/app
+      - ./src:/app/src
+      - ./build:/build
     networks:
       - dav
     external_links:
       - missioncontrol_missioncontrol_1:mission-control
+      - dav-contracts:dav-contracts
 networks:
   dav:
     external: true
