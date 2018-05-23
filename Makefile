@@ -2,14 +2,14 @@ link-dav-js:
 	npm link ../dav-js
 
 build-dashboard:
-	cd src/sky-dashbaord && npm run build
+	cd src/sky-dashbaord && npm i && npm run build
 
-build:
+build: build-dashboard 
 	@rsync -a ../dav-js build
 	@rsync -a ../dav-js node_modules
 	@docker-compose build
 
-up: build-dashboard build
+up: build
 	@docker-compose up
 
 up-bg: build

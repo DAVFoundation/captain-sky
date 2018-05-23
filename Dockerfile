@@ -11,6 +11,8 @@ RUN npm install
 
 COPY . /app
 
+RUN make build-dashboard
+
 CMD [ "npm", "start" ]
 
 EXPOSE 8080
