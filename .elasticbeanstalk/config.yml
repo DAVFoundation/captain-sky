@@ -3,7 +3,7 @@ branch-defaults:
     environment: captain-sky-stg
     group_suffix: null
   production:
-    environment: captain-sky-prod1
+    environment: captain-sky-prod
 environment-defaults:
   captain-sky-stg:
     branch: null
