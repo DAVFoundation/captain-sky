@@ -2,6 +2,8 @@ branch-defaults:
   master:
     environment: captain-sky-stg
     group_suffix: null
+  production:
+    environment: captain-sky-prod1
 environment-defaults:
   captain-sky-stg:
     branch: null
@@ -9,14 +11,14 @@ environment-defaults:
 global:
   application_name: captain-sky
   branch: null
-  default_ec2_keyname: captain-sky-key
+  default_ec2_keyname: null
   default_platform: Docker 17.09.1-ce
   default_region: us-east-1
   include_git_submodules: true
   instance_profile: null
   platform_name: null
   platform_version: null
-  profile: eb-cli-dav
+  profile: eb-cli
   repository: null
   sc: git
   workspace_type: Application
