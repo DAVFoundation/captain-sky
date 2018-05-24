@@ -21,7 +21,7 @@ for (let key in stations) {
 }
 const { API } = require('dav-js');
 const sky = require('./sky');
-const port = process.env.CAPTAIN_PORT;
+const port = process.env.CAPTAIN_PORT || '8886';
 sky.init().catch(err => console.log(err));
 
 const express = require('express');
