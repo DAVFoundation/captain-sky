@@ -180,7 +180,7 @@ class Sky {
   }
 
   async onNeed(station, need) {
-    if (station.needs.includes(need.id)) {
+    if (station.onMission || station.needs.includes(need.id)) {
       return;
     }
     
@@ -213,12 +213,20 @@ class Sky {
     if (station.bids.includes(bid.id)) {
       return;
     }
+    station.onMission = true;
     station.bids.push(bid.id);
   }
 
   onContractCreated(drone, mission) {
     this.beginMission(mission.captain_id, mission.mission_id);
   }
+
+  setStationAsFree(davID) {
+    if (!!davID && !!this.stationsByDavID[davID]) {
+      this.stationsByDavID[davID].onMission = false;
+    }
+  }
+  
 }
 
 module.exports = new Sky();

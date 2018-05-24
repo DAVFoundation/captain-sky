@@ -78,6 +78,7 @@ function getUpdatedStatusFromMissions() {
             case 'ready':
                 if (station.status === 'Charging') {
                     newStation.status = 'Available';
+                    sky.setStationAsFree(station.davId);
                 }    
                 break;
         }
