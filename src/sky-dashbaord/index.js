@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
-const captainSkyUrl = 'http://'+process.env.CAPTAIN_HOST+':'+process.env.CAPTAIN_PORT;
+// const captainSkyUrl = 'http://'+process.env.CAPTAIN_HOST+':'+process.env.CAPTAIN_PORT;
+const captainSkyUrl = '';
 
 function Station(props) {
   let stationClasses = 'station-box';

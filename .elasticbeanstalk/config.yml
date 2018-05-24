@@ -1,6 +1,11 @@
 branch-defaults:
   master:
     environment: captain-sky-stg
+    group_suffix: null
+environment-defaults:
+  captain-sky-stg:
+    branch: null
+    repository: null
 global:
   application_name: captain-sky
   branch: null
