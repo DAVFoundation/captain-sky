@@ -62,11 +62,6 @@ function getUpdatedStatusFromMissions() {
         const newStation = {};
         Object.assign(newStation, station);
         switch (captain.status) {
-            case 'contract_received':
-                if (station.status === 'Available') {
-                    newStation.status = 'Awaiting Landing Approval';
-                }
-                break;
             case 'in_progress':
                 if (station.status == 'Available') {
                     newStation.status = 'Awaiting Landing Approval';
