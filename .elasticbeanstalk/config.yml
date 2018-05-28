@@ -1,5 +1,5 @@
 branch-defaults:
-  master:
+  staging:
     environment: captain-sky-stg
     group_suffix: null
 environment-defaults:
