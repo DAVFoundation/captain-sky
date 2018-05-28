@@ -6,7 +6,7 @@ build-dashboard: FORCE
 build: build-dashboard
 	@rsync -a ../dav-js build
 	@rm -rf ../dav-js/node_modules
-	@docker-compose build
+	@docker-compose build --no-cache
 
 up: build
 	@docker-compose up
