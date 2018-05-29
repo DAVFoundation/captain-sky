@@ -1,3 +1,4 @@
 node_modules
+src/sky-dashbaord/node_modules
 npm-debug.log
 .DS_Store
