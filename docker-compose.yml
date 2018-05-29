@@ -12,9 +12,10 @@ services:
       DAV_API_URL: http://mission-control:8443
       CAPTAIN_PORT: 8080
       CAPTAIN_HOSTNAME: 0.0.0.0
-      ETH_NODE_URL: http://dav-contracts:8545
+      ETH_NODE_URL: https://ropsten.infura.io/wUiZtmeZ1KwjFrcC8zRO
       MISSION_CONTROL_URL: http://mission-control:8443
-      BLOCKCHAIN_TYPE: NONE
+      BLOCKCHAIN_TYPE: MAINNET
+      SKY_LOCATION: '46.058589, 11.1233963' #lat, long
     volumes:
       - ./src:/app/src
       - ./build:/build

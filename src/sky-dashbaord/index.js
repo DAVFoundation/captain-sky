@@ -64,7 +64,7 @@ class Dashboard extends Component {
         <div className="container" id="stations">
           <div className="row">
             {this.state.stations.map(station =>
-              <Station id={station.id} name={station.name} longitude={station.location.longitude} latitude={station.location.latitude}
+              <Station id={station.id} name={station.name} latitude={station.location.latitude} longitude={station.location.longitude}
               status={station.status} handleClick={() => this.updateStationStatus(station)}/>
             )}         
           </div>
