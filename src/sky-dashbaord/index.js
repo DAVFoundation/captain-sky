@@ -4,6 +4,22 @@ import ReactDOM from 'react-dom'
 // const captainSkyUrl = 'http://'+process.env.CAPTAIN_HOST+':'+process.env.CAPTAIN_PORT;
 const captainSkyUrl = '';
 
+function droneTypesString(droneTypesArray) {
+  let droneTypesString = '';
+  droneTypesArray.forEach(droneType => {
+    switch (droneType) {
+      case 'mavic': droneTypesString += ', DJI Mavic Air';
+        break;
+      case 'matrice': droneTypesString += ', DJI Matrice 100';
+        break;
+      case 'phantom': droneTypesString += ', DJI Phantom 4';
+        break;
+    }
+  });
+  droneTypesString = droneTypesString.slice(2);
+  return droneTypesString;
+}
+
 function Station(props) {
   let stationClasses = 'station-box';
   if(props.status === 'Awaiting Landing Approval') {
@@ -17,7 +33,9 @@ function Station(props) {
       <h4 className="station-name">{props.name}</h4>
       <div className={stationClasses}>
         <p>Station ID: <b>{props.id}</b></p>
-        <p>Location: <b>{props.longitude}, {props.latitude}</b></p>
+        <p>Location: {props.longitude}, {props.latitude}</p>
+        <p>Supported Drone Types: </p>
+        <p>{droneTypesString(props.droneTypes)}</p>
         <p>Status: <span>{props.status}</span></p>
         <a onClick={props.handleClick}>APPROVE</a>
       </div>
@@ -65,7 +83,7 @@ class Dashboard extends Component {
           <div className="row">
             {this.state.stations.map(station =>
               <Station id={station.id} name={station.name} latitude={station.location.latitude} longitude={station.location.longitude}
-              status={station.status} handleClick={() => this.updateStationStatus(station)}/>
+               droneTypes={station.drone_types} status={station.status} handleClick={() => this.updateStationStatus(station)}/>
             )}         
           </div>
         </div>

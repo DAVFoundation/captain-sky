@@ -180,7 +180,7 @@ class Sky {
   }
 
   async onNeed(station, need) {
-    if (station.onMission || station.needs.includes(need.id)) {
+    if (station.onMission || station.needs.includes(need.id) || !station.drone_types.includes(need.droneType)) {
       return;
     }
     
