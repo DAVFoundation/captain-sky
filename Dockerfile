@@ -11,7 +11,7 @@ RUN npm install
 
 COPY . /app
 
-RUN make build-dashboard
+RUN make rebuild-dashboard
 
 CMD [ "npm", "start" ]
 
