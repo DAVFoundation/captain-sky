@@ -180,10 +180,8 @@ class Sky {
   }
 
   async onNeed(station, need) {
-    if (station.onMission || station.needs.includes(need.id) || !station.drone_types.includes(need.droneType)) {
-      return;
-    }
-    
+    if (station.onMission || station.needs.includes(need.id) || !station.drone_types.includes(need.droneType)) return;
+        
     const distance = geolib.getDistance(
       { latitude: station.location.latitude, longitude: station.location.longitude },
       { latitude: need.need_location_latitude, longitude: need.need_location_longitude },
@@ -191,6 +189,10 @@ class Sky {
       1, 1
     );
 
+    const searchRadius = parseFloat(need.searchRadius);
+    if (searchRadius*1000 < distance) return;
+
+    
     const bidInfo = {
       captain_id: station.davId,
       price: station.price,
