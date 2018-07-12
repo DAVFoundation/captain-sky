@@ -4,7 +4,7 @@ module.exports = {
     davId: '0x1df62f291b2e969fb0849d99d9ce41e2f137006e',
     id: 11,
     name: 'Rosie',
-    price: '22e16',
+    price: '22e12',
     location: {
       longitude: longitude,
       latitude: latitude,
@@ -17,7 +17,7 @@ module.exports = {
     davId: '0xaca94ef8bd5ffee41947b4585a84bda5a3d3da6e',
     id: 12,
     name: 'Bender',
-    price: '5e16',
+    price: '5e12',
     location: {
       longitude: longitude,
       latitude: latitude
@@ -30,7 +30,7 @@ module.exports = {
     davId: '0x397776b35874f8c84ce288fedd9b684118774386',
     id: 13,
     name: 'Nairobi',
-    price: '4e16',
+    price: '4e12',
     location: {
       longitude: longitude,
       latitude: latitude
@@ -43,7 +43,7 @@ module.exports = {
     davId: '0x680a0047b7b1af651d920722ea70cc0c055f4693',
     id: 14,
     name: 'Rusty',
-    price: '5e16',
+    price: '5e12',
     location: {
       longitude: longitude,
       latitude: latitude
@@ -56,7 +56,7 @@ module.exports = {
     davId: '0xe71275245102f4b85092765aba7d29efdcb079cf',
     id: 15,
     name: 'Isumoid',
-    price: '6e16',
+    price: '6e12',
     location: {
       longitude: longitude,
       latitude: latitude
