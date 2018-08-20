@@ -20,6 +20,9 @@ up: build
 up-bg: build
 	@docker-compose up -d
 
+copy-local-dav:
+	mkdir -p temp-dav && cp -R ../dav-js/src ./temp-dav && cp -R ../dav-js/build ./temp-dav
+
 create-aws-stg-env: FORCE
 	@eb init captain-sky
 	@eb create captain-sky-stg --cname captain-sky-stg -k captain-sky-key
